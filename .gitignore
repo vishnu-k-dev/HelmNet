@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Logs (generated at runtime)
+logs/
+*.csv
+
+# ML model (large binary — downloaded by setup_rpi.sh)
+smarthelm/models/face_landmarker.task
+smarthelm/models/*.onnx
+
+# Personal/planning docs
+context.txt
+software-prd.txt
+pitch-deck-draft-1.pdf
+SmartHelm Phase1 Build.docx
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

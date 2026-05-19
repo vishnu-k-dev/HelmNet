@@ -1,0 +1,406 @@
+/* SmartHelm Dashboard — Dark Theme */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:         #0d1117;
+  --surface:    #161b22;
+  --surface2:   #21262d;
+  --border:     #30363d;
+  --text:       #e6edf3;
+  --text-muted: #8b949e;
+
+  --green:  #3fb950;
+  --red:    #f85149;
+  --yellow: #d29922;
+  --grey:   #6e7681;
+  --blue:   #58a6ff;
+
+  --alert-red: #ff4444;
+  --font: 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ================================================================
+   Header
+   ================================================================ */
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--blue);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.mode-badge {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--blue);
+  text-transform: uppercase;
+}
+
+.fps {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  min-width: 52px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot-grey   { background: var(--grey); }
+.dot-green  { background: var(--green); box-shadow: 0 0 6px var(--green); }
+.dot-red    { background: var(--red); }
+
+/* ================================================================
+   Alert Banner
+   ================================================================ */
+
+.alert-banner {
+  background: var(--alert-red);
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 14px;
+  animation: pulse-bg 1s ease-in-out infinite alternate;
+}
+
+.alert-banner.hidden { display: none; }
+
+.alert-icon { margin: 0 10px; font-size: 18px; }
+
+@keyframes pulse-bg {
+  from { background: #cc0000; }
+  to   { background: #ff4444; }
+}
+
+/* ================================================================
+   Main grid (cameras left, status right)
+   ================================================================ */
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 16px;
+  padding: 16px;
+  flex: 1;
+}
+
+/* ================================================================
+   Camera feeds
+   ================================================================ */
+
+.camera-grid {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 12px;
+}
+
+.cam-secondary-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.cam-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.cam-box.cam-primary {
+  border-color: var(--blue);
+}
+
+.cam-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cam-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--grey);
+  flex-shrink: 0;
+}
+.cam-dot.active {
+  background: var(--green);
+  box-shadow: 0 0 5px var(--green);
+}
+
+.cam-feed {
+  width: 100%;
+  display: block;
+  background: #000;
+  min-height: 180px;
+  object-fit: contain;
+}
+
+.cam-overlay {
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+}
+
+.eye-state-overlay {
+  font-size: 13px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+  opacity: 0.9;
+}
+.eye-state-overlay.open    { background: var(--green); color: #000; }
+.eye-state-overlay.closed  { background: var(--red);   color: #fff; }
+.eye-state-overlay.unknown { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); }
+
+/* ================================================================
+   Status panel (right sidebar)
+   ================================================================ */
+
+.status-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+
+.card-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+/* Eye state badge */
+.badge {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 8px 0;
+  display: block;
+  text-align: center;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+.badge.open    { background: rgba(63,185,80,.15);  color: var(--green); }
+.badge.closed  { background: rgba(248,81,73,.15);  color: var(--red);   }
+.badge.unknown { background: var(--surface2); color: var(--text-muted); }
+
+.sub-info {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-variant-numeric: tabular-nums;
+}
+.sub-info span { color: var(--text); font-weight: 600; }
+
+/* PERCLOS */
+.perclos-value {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.perclos-bar-bg {
+  height: 8px;
+  background: var(--surface2);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 6px;
+  border: 1px solid var(--border);
+}
+
+.perclos-bar-fill {
+  height: 100%;
+  background: var(--green);
+  border-radius: 4px;
+  transition: width 0.4s ease, background 0.4s ease;
+  max-width: 100%;
+}
+.perclos-bar-fill.warning { background: var(--yellow); }
+.perclos-bar-fill.danger  { background: var(--red); }
+
+/* Closure timer */
+.closure-value {
+  font-size: 34px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+/* Stats */
+.card-stats { }
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.stat-row:last-child { border-bottom: none; }
+.stat-label { color: var(--text-muted); }
+.stat-value { font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* ================================================================
+   Event history
+   ================================================================ */
+
+.event-section {
+  margin: 0 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.event-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+
+.event-header h2 {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.event-count {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.event-table-wrap {
+  overflow-x: auto;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.event-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.event-table th {
+  text-align: left;
+  padding: 8px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+}
+
+.event-table td {
+  padding: 7px 14px;
+  border-bottom: 1px solid var(--border);
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+.event-table tr:last-child td { border-bottom: none; }
+
+.event-table tr:hover td { background: var(--surface2); }
+
+.event-type-perclos    { color: var(--yellow); font-weight: 600; }
+.event-type-continuous { color: var(--red);    font-weight: 600; }
+.event-type-alert      { color: var(--red);    font-weight: 600; }
+
+.no-events {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 20px !important;
+}
+
+/* ================================================================
+   Alert state — body-level class applied by JS
+   ================================================================ */
+
+body.alert-active .status-panel .card:first-child {
+  border-color: var(--alert-red);
+  box-shadow: 0 0 12px rgba(255,68,68,0.25);
+}
+
+/* ================================================================
+   Scrollbar
+   ================================================================ */
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }

@@ -1,0 +1,1417 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>SmartHelm — Pitch Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#FFFFFF;--bg-soft:#F8F9FA;--ink:#1A1A2E;--ink-2:#2A2A3E;
+  --navy:#1E3A5F;--navy-soft:#EEF2F7;--navy-line:#C9D3DF;
+  --orange:#E8530A;--orange-soft:#FEF1EA;
+  --green:#16A34A;--green-soft:#E7F5EC;
+  --red:#DC2626;--red-soft:#FCE9E9;
+  --amber:#C77700;
+  --muted:#6B7280;--muted-2:#9AA1AB;
+  --hair:#E5E7EB;--hair-2:#EEF0F3;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:#0c0c10;width:100%;height:100%;overflow:hidden;font-family:'Inter',system-ui,sans-serif;}
+
+/* ── Viewer ── */
+#viewer{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
+#scaler{position:relative;width:1920px;height:1080px;transform-origin:top left;}
+
+/* ── Progress bar ── */
+#progress{position:fixed;bottom:0;left:0;height:3px;background:var(--orange);transition:width .3s;z-index:999;}
+
+/* ── Nav hint ── */
+#nav-hint{position:fixed;bottom:16px;right:20px;color:rgba(255,255,255,.35);font-size:13px;letter-spacing:.08em;font-family:'Inter',sans-serif;pointer-events:none;}
+
+/* ── Slides ── */
+.slide{
+  width:1920px;height:1080px;background:var(--bg);color:var(--ink);
+  position:absolute;top:0;left:0;overflow:hidden;
+  font-feature-settings:"ss01","cv11","tnum";
+  -webkit-font-smoothing:antialiased;
+  display:none;
+}
+.slide.active{display:block;}
+.slide.soft{background:var(--bg-soft);}
+
+/* ── Chrome ── */
+.wordmark{
+  position:absolute;top:52px;left:96px;
+  display:flex;align-items:center;gap:12px;
+  color:var(--muted);font-size:18px;letter-spacing:.02em;font-weight:600;
+}
+.wordmark .name{color:var(--ink);letter-spacing:-.01em;}
+.wordmark .name span{color:var(--orange);}
+.page-num{
+  position:absolute;right:96px;bottom:52px;
+  color:var(--muted-2);font-size:16px;font-variant-numeric:tabular-nums;letter-spacing:.08em;
+}
+.page-num b{color:var(--muted);font-weight:500;}
+.foot-tag{
+  position:absolute;left:96px;bottom:52px;
+  color:var(--muted-2);font-size:15px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;
+}
+.foot-tag b{color:var(--navy);font-weight:600;}
+.slide-tag{
+  position:absolute;top:140px;left:96px;
+  font-size:13px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:700;
+}
+.slide-tag .n{color:var(--orange);font-weight:800;}
+
+/* ── Layout ── */
+.body{position:absolute;top:184px;left:96px;right:96px;bottom:132px;}
+
+/* ── Type ── */
+.eyebrow{color:var(--orange);font-size:15px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;margin:0 0 18px;}
+h1.headline{font-size:62px;line-height:1.07;letter-spacing:-.022em;font-weight:700;margin:0;color:var(--ink);max-width:1500px;}
+h1.headline .navy{color:var(--navy);}
+h1.headline.lg{font-size:78px;}
+h1.headline.xl{font-size:94px;}
+.rule{width:96px;height:3px;background:var(--orange);margin:26px 0 38px;border:0;}
+.sub{color:var(--navy);font-size:28px;line-height:1.4;font-weight:500;max-width:1300px;margin:0 0 28px;}
+.body-text{color:var(--ink-2);font-size:22px;line-height:1.55;max-width:980px;}
+.muted{color:var(--muted);}
+.source{color:var(--muted);font-size:14px;letter-spacing:.04em;}
+.num{font-feature-settings:"tnum";font-variant-numeric:tabular-nums;letter-spacing:-.03em;}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:999px;background:var(--orange-soft);color:var(--orange);font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+.pill.navy{background:var(--navy-soft);color:var(--navy);}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+.dot.green{background:var(--green);}
+.dot.red{background:var(--red);}
+.dot.amber{background:var(--amber);}
+.arrow-orange{color:var(--orange);font-weight:800;}
+.mono{font-family:'JetBrains Mono',monospace;}
+.closer-orange{margin-top:40px;color:var(--orange);font-size:30px;font-weight:600;letter-spacing:-.01em;}
+
+/* ════════════════════════════════════════════
+   SLIDE 1 — COVER
+   ════════════════════════════════════════════ */
+.cover-bg-mark{
+  position:absolute;right:-60px;top:-60px;
+  width:680px;height:680px;border-radius:50%;
+  background:radial-gradient(circle at 60% 40%,rgba(232,83,10,.09),transparent 70%);
+  pointer-events:none;
+}
+.cover-bg-rule{
+  position:absolute;left:0;bottom:260px;
+  width:5px;height:520px;background:var(--orange);opacity:.18;
+}
+.cover-hero{position:absolute;left:96px;right:96px;top:280px;}
+.cover-hero .brand{
+  font-size:210px;line-height:.92;letter-spacing:-.045em;font-weight:900;color:var(--ink);margin:0;
+}
+.cover-hero .brand span{color:var(--orange);}
+.cover-hero .rule-c{width:140px;height:3px;background:var(--orange);margin:36px 0 30px;border:0;}
+.cover-hero .tag{font-size:36px;color:var(--navy);font-weight:600;letter-spacing:-.01em;margin:0 0 14px;}
+.cover-hero .lede{font-size:22px;color:var(--muted);letter-spacing:.01em;max-width:700px;}
+.cover-meta{
+  position:absolute;left:96px;bottom:96px;right:96px;
+  display:flex;justify-content:space-between;align-items:flex-end;
+  color:var(--muted);font-size:15px;letter-spacing:.1em;text-transform:uppercase;
+}
+.cover-meta .col{display:flex;flex-direction:column;gap:6px;}
+.cover-meta .col b{color:var(--navy);font-weight:600;font-size:17px;}
+.cover-meta .right{text-align:right;}
+
+/* ════════════════════════════════════════════
+   SLIDE 2 — HOOK
+   ════════════════════════════════════════════ */
+.hook-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:100px;align-items:center;height:100%;}
+.hook-line{font-size:58px;font-weight:800;color:var(--orange);line-height:1.08;letter-spacing:-.02em;margin:36px 0 0;}
+.hook-cards{display:grid;grid-template-rows:1fr 1fr;gap:32px;}
+.hook-card{border:1px solid var(--hair);border-radius:6px;padding:44px 48px;display:flex;align-items:center;gap:36px;}
+.hook-card .ico{width:100px;height:100px;border-radius:50%;background:var(--navy-soft);color:var(--navy);display:grid;place-items:center;flex-shrink:0;}
+.hook-card.ko .ico{background:#fff;border:1.5px dashed var(--red);color:var(--red);}
+.hook-card .label .k{font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--muted);}
+.hook-card.ko .label .k{color:var(--red);}
+.hook-card.ok .label .k{color:var(--green);}
+.hook-card .label .v{font-size:38px;font-weight:700;color:var(--ink);letter-spacing:-.01em;margin-top:6px;}
+.hook-card .label .d{font-size:18px;color:var(--muted);margin-top:6px;}
+
+/* ════════════════════════════════════════════
+   SLIDE 3 — SCALE STATS
+   ════════════════════════════════════════════ */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-top:28px;}
+.stat{padding:0 60px;border-left:1px solid var(--hair);}
+.stat:first-child{padding-left:0;border-left:0;}
+.stat .n{font-size:176px;line-height:.9;font-weight:800;color:var(--navy);letter-spacing:-.045em;font-variant-numeric:tabular-nums;}
+.stat .n sup{font-size:.42em;vertical-align:.6em;color:var(--orange);font-weight:800;margin-left:4px;}
+.stat .lbl-strong{font-size:26px;font-weight:700;color:var(--ink);margin-top:26px;}
+.stat .lbl{font-size:20px;color:var(--muted);margin-top:8px;line-height:1.4;max-width:300px;}
+
+/* ════════════════════════════════════════════
+   SLIDE 4 — HUMAN COST
+   ════════════════════════════════════════════ */
+.human-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:100px;height:100%;}
+.pull-quote{font-style:italic;font-size:60px;line-height:1.18;color:var(--orange);font-weight:700;letter-spacing:-.025em;margin:0;}
+.pull-quote::before{content:'\201C';display:block;font-size:160px;line-height:.55;color:var(--orange);opacity:.3;margin-bottom:30px;}
+.pull-attr{color:var(--muted);font-size:18px;margin-top:34px;font-style:normal;letter-spacing:.04em;}
+.pull-attr b{color:var(--navy);font-weight:600;}
+.human-right{border-left:1px solid var(--hair);padding-left:80px;display:flex;flex-direction:column;justify-content:center;}
+.micro-stat .k{font-size:15px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+.micro-stat .v{font-size:100px;line-height:1;font-weight:800;color:var(--navy);letter-spacing:-.04em;margin:14px 0 12px;}
+.micro-stat .v sub{font-size:.28em;vertical-align:.4em;color:var(--muted);font-weight:500;letter-spacing:0;margin-left:6px;}
+.micro-stat .d{font-size:23px;color:var(--ink-2);line-height:1.45;max-width:540px;}
+.micro-stat+.micro-stat{margin-top:72px;}
+.micro-rule{width:64px;height:2px;background:var(--orange);margin:14px 0 22px;border:0;}
+
+/* ════════════════════════════════════════════
+   SLIDE 5 — BUSINESS COST
+   ════════════════════════════════════════════ */
+.quad{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:0;border:1px solid var(--hair);border-radius:8px;height:580px;}
+.quad .cell{padding:44px 52px;border-right:1px solid var(--hair);border-bottom:1px solid var(--hair);display:flex;flex-direction:column;gap:18px;}
+.quad .cell:nth-child(2n){border-right:0;}
+.quad .cell:nth-child(n+3){border-bottom:0;}
+.quad .cell .ico-row{display:flex;align-items:center;gap:16px;}
+.quad .cell .ico{width:48px;height:48px;border-radius:8px;background:var(--navy-soft);color:var(--navy);display:grid;place-items:center;}
+.quad .cell .lbl{font-size:28px;font-weight:700;color:var(--navy);letter-spacing:-.01em;}
+.quad .cell .bar{width:40px;height:2px;background:var(--orange);}
+.quad .cell .desc{font-size:22px;color:var(--ink-2);line-height:1.45;max-width:460px;}
+.quad-foot{margin-top:44px;color:var(--navy);font-size:27px;font-weight:500;max-width:1300px;line-height:1.4;}
+
+/* ════════════════════════════════════════════
+   SLIDE 6 — LIMITATIONS
+   ════════════════════════════════════════════ */
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:20px;}
+.twocol .col-head{font-size:14px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--muted);padding-bottom:18px;border-bottom:1px solid var(--hair);margin-bottom:24px;}
+.twocol .col.tracked .col-head{color:var(--green);}
+.twocol .col.invisible .col-head{color:var(--red);}
+.twocol ul{list-style:none;padding:0;margin:0;}
+.twocol li{display:flex;align-items:center;gap:22px;padding:20px 0;font-size:28px;color:var(--ink);border-bottom:1px solid var(--hair-2);}
+.twocol li:last-child{border-bottom:0;}
+.twocol li .mk{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;font-weight:700;font-size:16px;}
+.twocol .col.tracked li .mk{background:var(--green-soft);color:var(--green);}
+.twocol .col.invisible li .mk{background:var(--red-soft);color:var(--red);}
+.twocol .col.invisible li{color:var(--muted);}
+
+/* ════════════════════════════════════════════
+   SLIDE 7 — SOLUTION (REDESIGNED)
+   ════════════════════════════════════════════ */
+.sol-grid{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  gap:36px;margin-top:24px;
+}
+.sol-card{
+  border:2px solid var(--hair);border-radius:10px;
+  background:#fff;overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:border-color .2s;
+}
+.sol-card .sol-head{
+  background:var(--navy);color:#fff;
+  padding:28px 32px;
+  display:flex;align-items:center;gap:18px;
+}
+.sol-card .sol-head .ico{
+  width:64px;height:64px;border-radius:8px;
+  background:rgba(255,255,255,.12);
+  display:grid;place-items:center;flex-shrink:0;
+}
+.sol-card .sol-head .step{font-size:12px;letter-spacing:.2em;text-transform:uppercase;opacity:.65;font-weight:700;}
+.sol-card .sol-head .name{font-size:30px;font-weight:800;margin-top:4px;letter-spacing:-.01em;}
+.sol-card .sol-body{padding:32px;flex:1;display:flex;flex-direction:column;gap:14px;}
+.sol-card .sol-body .what{
+  font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;
+}
+.sol-card .sol-body .desc{font-size:22px;color:var(--ink);line-height:1.5;font-weight:500;}
+.sol-card .sol-body .desc b{color:var(--navy);}
+.sol-card .sol-body .metric{
+  margin-top:auto;padding-top:20px;border-top:1px solid var(--hair);
+  display:flex;align-items:baseline;gap:10px;
+}
+.sol-card .sol-body .metric .n{font-size:42px;font-weight:800;color:var(--orange);letter-spacing:-.03em;line-height:1;}
+.sol-card .sol-body .metric .u{font-size:16px;color:var(--muted);font-weight:500;}
+
+/* arrow between cards */
+.sol-arrow{display:flex;align-items:center;justify-content:center;padding-top:24px;}
+.sol-arrow svg{flex-shrink:0;}
+
+.sol-foot{
+  margin-top:36px;
+  display:flex;align-items:center;gap:20px;
+  background:var(--orange-soft);border-left:4px solid var(--orange);
+  border-radius:0 8px 8px 0;padding:18px 28px;
+  font-size:26px;font-weight:600;color:var(--orange);
+  max-width:900px;
+}
+
+/* ════════════════════════════════════════════
+   SLIDE 8 — HOW IT WORKS (SYSTEM)
+   ════════════════════════════════════════════ */
+.sys-flow{margin-top:28px;}
+.cam-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;}
+.cam-box{border:2px solid var(--navy);border-radius:8px;padding:30px;display:flex;flex-direction:column;gap:12px;background:#fff;}
+.cam-box .top{display:flex;align-items:center;gap:16px;}
+.cam-box .ico{width:60px;height:60px;background:var(--navy);color:#fff;border-radius:8px;display:grid;place-items:center;}
+.cam-box .tag{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+.cam-box h3{font-size:28px;margin:0;color:var(--navy);font-weight:700;letter-spacing:-.01em;}
+.cam-box ul{list-style:none;padding:0;margin:6px 0 0;}
+.cam-box ul li{font-size:19px;color:var(--ink-2);padding:4px 0;}
+.sys-merge{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:0;}
+.stage-box{border-radius:8px;padding:28px 32px;background:var(--navy);color:#fff;display:flex;align-items:center;gap:24px;}
+.stage-box.alt{background:#fff;color:var(--navy);border:2px solid var(--navy);}
+.stage-box .ico{width:60px;height:60px;background:rgba(255,255,255,.12);border-radius:8px;display:grid;place-items:center;}
+.stage-box.alt .ico{background:var(--navy-soft);}
+.stage-box .tag{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.7;font-weight:700;}
+.stage-box h3{margin:0;font-size:26px;font-weight:700;}
+.stage-box p{margin:6px 0 0;font-size:17px;opacity:.85;line-height:1.4;}
+
+/* ════════════════════════════════════════════
+   SLIDE 9 — CAMERA 1 / EAR
+   ════════════════════════════════════════════ */
+.c1-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:80px;margin-top:14px;}
+.c1-list{list-style:none;padding:0;margin:0;}
+.c1-list li{font-size:24px;color:var(--ink);padding:20px 0;border-top:1px solid var(--hair-2);display:flex;gap:16px;align-items:baseline;}
+.c1-list li:first-child{border-top:0;padding-top:0;}
+.c1-list li .b{color:var(--orange);font-weight:700;}
+.c1-list li strong{color:var(--navy);font-weight:600;}
+.c1-graph{border:1px solid var(--hair);border-radius:8px;padding:30px;background:#fff;}
+.c1-graph .title{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:16px;}
+.ear-svg{width:100%;height:auto;display:block;}
+.ear-legend{display:flex;gap:28px;margin-top:18px;font-size:16px;color:var(--ink-2);flex-wrap:wrap;}
+.ear-legend .item{display:flex;align-items:center;gap:8px;}
+.ear-legend .sw{width:18px;height:10px;border-radius:2px;}
+.c1-closer{margin-top:32px;color:var(--ink);font-size:25px;line-height:1.45;max-width:1300px;}
+.c1-closer b{color:var(--orange);}
+
+/* ════════════════════════════════════════════
+   SLIDES 11-20 CSS
+   ════════════════════════════════════════════ */
+/* Pipeline */
+.pipe{margin-top:28px;position:relative;}
+.pipe-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative;}
+.pipe-line{position:absolute;top:38px;left:8%;right:8%;height:2px;background:var(--hair);z-index:0;}
+.pipe-step{position:relative;z-index:1;padding:0 16px;text-align:center;}
+.pipe-step .node{width:76px;height:76px;border-radius:50%;background:#fff;border:2px solid var(--navy);color:var(--navy);margin:0 auto;display:grid;place-items:center;font-weight:700;font-size:22px;}
+.pipe-step .lbl{font-size:22px;font-weight:600;color:var(--ink);margin-top:18px;}
+.pipe-step .t{font-size:16px;color:var(--muted);margin-top:6px;font-variant-numeric:tabular-nums;letter-spacing:.04em;}
+.pipe-alert{margin-top:64px;margin-left:auto;width:800px;border:2px solid var(--orange);border-radius:8px;background:var(--orange-soft);padding:28px 32px;position:relative;}
+.pipe-alert::before{content:'';position:absolute;top:-52px;left:50%;width:2px;height:52px;background:var(--orange);}
+.pipe-alert::after{content:'';position:absolute;top:-8px;left:calc(50% - 8px);width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:12px solid var(--orange);}
+.pipe-alert .hd{display:flex;align-items:baseline;gap:16px;margin-bottom:12px;}
+.pipe-alert .hd .k{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);font-weight:800;}
+.pipe-alert .hd .n{color:var(--navy);font-weight:700;font-size:26px;}
+.pipe-alert ul{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;list-style:none;padding:0;margin:0;}
+.pipe-alert li{font-size:18px;color:var(--ink-2);display:flex;align-items:center;gap:10px;}
+.pipe-alert li::before{content:'';width:6px;height:6px;background:var(--orange);border-radius:50%;}
+.pipe-alert .total{margin-top:14px;font-size:16px;color:var(--orange);font-weight:700;letter-spacing:.04em;}
+.pipe-foot{margin-top:40px;display:inline-flex;align-items:center;gap:16px;padding:14px 22px;background:var(--bg-soft);border-left:3px solid var(--navy);border-radius:0 4px 4px 0;color:var(--ink-2);font-size:18px;line-height:1.4;}
+.pipe-foot b{color:var(--navy);}
+/* Accountability */
+.acc-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:20px;}
+.acc-card{border:1px solid var(--hair);border-radius:8px;padding:36px 40px;background:#fff;display:flex;flex-direction:column;gap:20px;}
+.acc-card .hd{display:flex;align-items:center;gap:18px;}
+.acc-card .ico{width:60px;height:60px;background:var(--navy);color:#fff;border-radius:8px;display:grid;place-items:center;}
+.acc-card .hd .k{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+.acc-card .hd .n{font-size:26px;color:var(--navy);font-weight:700;letter-spacing:-.01em;}
+.acc-card .lines{display:flex;flex-direction:column;gap:8px;}
+.acc-card .lines .l{font-size:22px;color:var(--ink);padding:6px 0;}
+.acc-card .lines .l .b{color:var(--muted);font-size:15px;display:block;margin-top:2px;letter-spacing:.04em;}
+.acc-card .arow{display:flex;gap:36px;margin-top:8px;padding-top:20px;border-top:1px solid var(--hair);}
+.acc-card .arow .k{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--green);font-weight:800;margin-bottom:4px;}
+.acc-card .arow .v{font-size:20px;color:var(--ink);font-weight:600;}
+.acc-card .arow .col{flex:1;}
+.acc-card .arow .col+.col{border-left:1px solid var(--hair);padding-left:36px;}
+.acc-card .arow .col .k.use{color:var(--muted);}
+.acc-foot{margin-top:40px;font-size:26px;color:var(--navy);font-style:italic;line-height:1.4;font-weight:500;max-width:1500px;}
+/* Dashboard */
+.dash{margin-top:14px;border:1px solid var(--hair);border-radius:10px;background:#fff;overflow:hidden;box-shadow:0 4px 24px rgba(20,30,50,.05);}
+.dash-top{display:flex;align-items:center;padding:18px 28px;border-bottom:1px solid var(--hair);background:var(--bg-soft);gap:28px;}
+.dash-top .brand-d{display:flex;align-items:center;gap:12px;font-weight:700;color:var(--navy);font-size:18px;}
+.dash-top .spacer{flex:1;}
+.dash-top .stat-chip{display:inline-flex;align-items:center;gap:10px;font-size:15px;color:var(--muted);padding:6px 14px;background:#fff;border:1px solid var(--hair);border-radius:999px;font-variant-numeric:tabular-nums;}
+.dash-top .stat-chip b{color:var(--navy);font-weight:700;}
+.dash-top .stat-chip.alert-chip{background:var(--red-soft);border-color:#F3BEBE;color:var(--red);}
+.dash-top .stat-chip.alert-chip b{color:var(--red);}
+.dash-body{display:grid;grid-template-columns:1.6fr 1fr;}
+.dash-table{border-right:1px solid var(--hair);}
+.dash-table table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;}
+.dash-table th{text-align:left;padding:16px 24px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;border-bottom:1px solid var(--hair);background:#fff;}
+.dash-table td{padding:18px 24px;font-size:18px;color:var(--ink);border-bottom:1px solid var(--hair-2);}
+.dash-table tr:last-child td{border-bottom:0;}
+.dash-table td .mono{font-family:'JetBrains Mono',monospace;font-size:16px;}
+.dash-table tr.d-alert td{background:var(--red-soft);}
+.dash-table tr.d-alert td .mono{color:var(--red);}
+.dash-table .dstatus{display:inline-flex;align-items:center;gap:8px;font-weight:600;}
+.dash-table .dstatus .dot{width:10px;height:10px;border-radius:50%;}
+.dash-table .dstatus.normal{color:var(--green);}
+.dash-table .dstatus.normal .dot{background:var(--green);}
+.dash-table .dstatus.d-alert-s{color:var(--red);}
+.dash-table .dstatus.d-alert-s .dot{background:var(--red);}
+.dash-table .dstatus.monitor{color:var(--amber);}
+.dash-table .dstatus.monitor .dot{background:var(--amber);}
+.dash-side{padding:24px 28px;display:flex;flex-direction:column;gap:20px;}
+.dash-side .section-t{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+.dash-alert-box{background:var(--red-soft);border-left:3px solid var(--red);padding:18px 20px;border-radius:0 6px 6px 0;}
+.dash-alert-box .t{color:var(--red);font-weight:800;font-size:14px;letter-spacing:.14em;text-transform:uppercase;display:flex;align-items:center;gap:10px;}
+.dash-alert-box .t .pulse{width:10px;height:10px;background:var(--red);border-radius:50%;box-shadow:0 0 0 4px rgba(220,38,38,.18);}
+.dash-alert-box .v{font-size:22px;color:var(--ink);font-weight:700;margin-top:8px;}
+.dash-alert-box .meta{font-size:14px;color:var(--muted);margin-top:6px;font-variant-numeric:tabular-nums;font-family:'JetBrains Mono',monospace;}
+.dash-summary{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.dash-summary .c{border:1px solid var(--hair);border-radius:6px;padding:14px 16px;}
+.dash-summary .c .k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+.dash-summary .c .v{font-size:26px;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums;margin-top:4px;}
+.dash-summary .c.d-alert-c .v{color:var(--red);}
+.dash-summary .c.ok .v{color:var(--green);}
+/* Why now */
+.why-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:60px;margin-top:20px;}
+.why-col .ico{width:56px;height:56px;border-radius:8px;background:var(--navy-soft);color:var(--navy);display:grid;place-items:center;margin-bottom:28px;}
+.why-col .lbl{font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);font-weight:800;margin-bottom:14px;}
+.why-col .rule-s{width:36px;height:2px;background:var(--orange);margin-bottom:22px;}
+.why-col .body-t{font-size:22px;color:var(--ink-2);line-height:1.5;}
+.why-col .body-t b{color:var(--navy);font-weight:600;}
+.why-col .big{font-size:52px;color:var(--ink);font-weight:700;letter-spacing:-.03em;line-height:1;margin-bottom:12px;}
+.why-foot{margin-top:52px;color:var(--orange);font-size:27px;font-weight:600;border-top:2px solid var(--orange);padding-top:22px;max-width:1400px;line-height:1.3;}
+/* Market */
+.mkt-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:14px;}
+.mkt-list{list-style:none;padding:0;margin:0;}
+.mkt-list li{display:grid;grid-template-columns:220px 1fr;align-items:baseline;gap:28px;padding:22px 0;border-top:1px solid var(--hair-2);}
+.mkt-list li:first-child{border-top:0;padding-top:0;}
+.mkt-list .n{font-size:58px;font-weight:800;color:var(--navy);letter-spacing:-.035em;font-variant-numeric:tabular-nums;line-height:1;}
+.mkt-list .l{font-size:20px;color:var(--ink-2);line-height:1.4;}
+.bars{display:flex;flex-direction:column;gap:28px;padding-left:60px;border-left:1px solid var(--hair);}
+.bars .row .k{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:8px;}
+.bars .row .k b{color:var(--navy);font-size:22px;letter-spacing:-.01em;text-transform:none;font-weight:700;font-variant-numeric:tabular-nums;}
+.bars .row .bar{height:28px;background:var(--hair-2);border-radius:3px;overflow:hidden;}
+.bars .row .bar .fill{height:100%;background:var(--orange);border-radius:3px;}
+.bars .row .desc{margin-top:8px;font-size:16px;color:var(--muted);}
+/* Competitive */
+.comp-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:19px;}
+.comp-table th,.comp-table td{padding:16px 18px;text-align:center;border-bottom:1px solid var(--hair-2);}
+.comp-table th.feat,.comp-table td.feat{text-align:left;color:var(--ink);font-weight:500;width:44%;}
+.comp-table thead th{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:800;padding-bottom:16px;border-bottom:2px solid var(--navy);}
+.comp-table thead th.sh{background:var(--navy);color:#fff;border-radius:6px 6px 0 0;}
+.comp-table thead th.feat{color:var(--navy);}
+.comp-table td.sh{background:#F2F6FB;}
+.comp-table .yes{color:var(--green);font-size:22px;font-weight:800;}
+.comp-table .no{color:#D1D5DB;font-size:20px;font-weight:700;}
+.comp-foot{margin-top:28px;color:var(--orange);font-size:24px;font-weight:600;}
+/* Tech */
+.tech-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:48px;margin-top:18px;}
+.tech-col .ico{width:56px;height:56px;border-radius:8px;background:var(--navy-soft);color:var(--navy);display:grid;place-items:center;margin-bottom:24px;}
+.tech-col .lbl{font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);font-weight:800;margin-bottom:14px;}
+.tech-col .rule-s{width:36px;height:2px;background:var(--orange);margin-bottom:18px;}
+.tech-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px;}
+.tech-col li{font-size:18px;color:var(--ink);line-height:1.4;}
+.tech-col li .t{font-family:'JetBrains Mono',monospace;color:var(--navy);font-weight:600;font-size:17px;display:block;}
+.tech-col li .d{color:var(--muted);font-size:16px;display:block;margin-top:2px;}
+.tech-note{margin-top:36px;padding:22px 28px;background:var(--bg-soft);border-left:3px solid var(--navy);border-radius:0 6px 6px 0;font-size:18px;color:var(--ink-2);line-height:1.5;max-width:1500px;}
+.tech-note b{color:var(--navy);}
+.tech-upgrade{margin-top:14px;color:var(--muted);font-size:15px;font-style:italic;}
+.tech-upgrade b{color:var(--orange);font-style:normal;font-weight:700;}
+/* Scale */
+.scale-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;align-items:stretch;margin-top:28px;position:relative;}
+.scale-arrow{position:absolute;top:50%;width:24px;height:2px;background:var(--orange);transform:translateY(-50%);z-index:0;}
+.scale-arrow::after{content:'';position:absolute;right:-1px;top:-5px;width:0;height:0;border-left:10px solid var(--orange);border-top:6px solid transparent;border-bottom:6px solid transparent;}
+.scale-arrow.a1{left:calc(33.333% - 12px);}
+.scale-arrow.a2{left:calc(66.666% - 12px);}
+.scale-card{border:1px solid var(--hair);border-radius:8px;padding:32px;background:#fff;display:flex;flex-direction:column;z-index:1;position:relative;}
+.scale-card .ph{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:800;}
+.scale-card .when{font-size:28px;color:var(--navy);font-weight:700;letter-spacing:-.01em;margin:6px 0 18px;}
+.scale-card .rule-s{width:36px;height:2px;background:var(--orange);margin-bottom:22px;}
+.scale-card ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;}
+.scale-card li{font-size:20px;color:var(--ink);display:flex;gap:12px;align-items:baseline;line-height:1.35;}
+.scale-card li::before{content:'·';color:var(--orange);font-weight:800;font-size:22px;}
+.scale-card.now{border:2px solid var(--navy);}
+.scale-card.now .ph{color:var(--orange);}
+.scale-foot{margin-top:50px;color:var(--navy);font-size:24px;line-height:1.4;max-width:1400px;}
+.scale-foot b{color:var(--orange);font-weight:700;}
+/* Demo */
+.demo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:28px;}
+.demo-card{border:2px solid var(--hair);border-radius:8px;background:#fff;overflow:hidden;display:flex;flex-direction:column;}
+.demo-card .step-tag{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:800;padding:18px 24px 0;}
+.demo-card .step-tag b{color:var(--navy);}
+.demo-card .dname{font-size:28px;color:var(--navy);font-weight:700;padding:6px 24px 0;letter-spacing:-.01em;}
+.demo-card .rule-s{width:36px;height:2px;background:var(--orange);margin:16px 24px;}
+.demo-card .viz{height:180px;display:grid;place-items:center;background:var(--bg-soft);margin:0 24px 18px;border-radius:6px;}
+.demo-card .data{padding:0 24px 24px;display:flex;flex-direction:column;gap:10px;font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--ink-2);}
+.demo-card .data .drow{display:flex;justify-content:space-between;border-bottom:1px dashed var(--hair);padding-bottom:8px;}
+.demo-card .data .drow:last-child{border-bottom:0;}
+.demo-card .data .drow .k{color:var(--muted);text-transform:uppercase;font-size:11px;letter-spacing:.14em;}
+.demo-card .data .drow .v{color:var(--ink);font-weight:700;}
+.demo-card.d-green{border-color:var(--green);}
+.demo-card.d-green .dname{color:var(--green);}
+.demo-card.d-orange{border-color:var(--orange);}
+.demo-card.d-orange .dname{color:var(--orange);}
+.demo-card.d-red{border-color:var(--red);background:var(--red-soft);}
+.demo-card.d-red .dname{color:var(--red);}
+.demo-card.d-red .viz{background:rgba(220,38,38,.05);}
+.demo-foot{margin-top:36px;text-align:center;color:var(--navy);font-size:24px;font-weight:500;}
+.demo-foot b{color:var(--orange);font-weight:700;}
+/* Close */
+.close-hero{text-align:center;margin-top:30px;}
+.close-hero h1{font-size:74px;line-height:1.07;letter-spacing:-.025em;font-weight:700;color:var(--ink);margin:0 auto;max-width:1400px;}
+.close-rule{width:96px;height:3px;background:var(--orange);margin:36px auto;border:0;}
+.close-sub{font-size:40px;color:var(--navy);font-weight:700;letter-spacing:-.01em;margin:0;}
+.asks{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px;margin-top:80px;max-width:1500px;margin-left:auto;margin-right:auto;}
+.ask{border:1px solid var(--hair);border-radius:8px;padding:32px;background:#fff;display:flex;flex-direction:column;gap:12px;text-align:left;}
+.ask .ico{width:48px;height:48px;border-radius:8px;background:var(--orange-soft);color:var(--orange);display:grid;place-items:center;margin-bottom:6px;}
+.ask .k{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);font-weight:800;}
+.ask .v{font-size:18px;color:var(--ink-2);line-height:1.5;}
+.ask .v b{color:var(--navy);}
+.close-tag{position:absolute;bottom:104px;left:0;right:0;text-align:center;font-style:italic;font-size:26px;color:var(--orange);font-weight:600;}
+
+/* ════════════════════════════════════════════
+   SLIDE 10 — TWO TRIGGERS
+   ════════════════════════════════════════════ */
+.trigger-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:18px;}
+.trigger-card{border:2px solid var(--navy);border-radius:10px;background:#fff;overflow:hidden;display:flex;flex-direction:column;}
+.trigger-card .hd{background:var(--navy);color:#fff;padding:24px 36px;display:flex;align-items:baseline;gap:16px;}
+.trigger-card .hd .k{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);font-weight:700;}
+.trigger-card .hd .n{font-size:30px;font-weight:800;}
+.trigger-card .bd{padding:36px;flex:1;display:flex;flex-direction:column;gap:16px;}
+.trigger-card .bd .what{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+.trigger-card .bd .desc{font-size:26px;color:var(--ink);line-height:1.4;}
+.trigger-card .bd .desc b{color:var(--navy);}
+.trigger-card .bd .alert-line{display:inline-flex;align-items:center;gap:12px;color:var(--orange);font-size:24px;font-weight:700;margin-top:8px;}
+.trigger-card .bd .catches{margin-top:auto;padding-top:20px;border-top:1px solid var(--hair);font-size:18px;color:var(--muted);font-style:italic;line-height:1.4;}
+.trigger-card .bd .catches b{color:var(--ink);font-style:normal;font-weight:600;}
+.trigger-foot{margin-top:36px;color:var(--ink-2);font-size:23px;line-height:1.45;max-width:1300px;}
+.trigger-foot b{color:var(--navy);}
+</style>
+</head>
+<body>
+<div id="viewer">
+<div id="scaler">
+
+<!-- SVG helmet mark (reused) -->
+<svg style="display:none">
+  <symbol id="helm-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 14a9 9 0 0 1 18 0v3H3v-3Z"/>
+    <path d="M3 17h18"/>
+    <path d="M9 14V9"/>
+  </symbol>
+</svg>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 1 — COVER
+     ══════════════════════════════════════════ -->
+<section class="slide active" data-label="Cover">
+  <div class="cover-bg-mark"></div>
+  <div class="cover-bg-rule"></div>
+
+  <div class="wordmark">
+    <span><svg width="22" height="22"><use href="#helm-ico" stroke="#E8530A"/></svg></span>
+    <span class="name">Smart<span>Helm</span></span>
+  </div>
+
+  <div class="cover-hero">
+    <h1 class="brand">Smart<span>Helm</span><span style="color:var(--orange)">.</span></h1>
+    <hr class="rule-c"/>
+    <div class="tag">Real-time rider intelligence for delivery fleets.</div>
+    <div class="lede">Preventive safety infrastructure for the last mile.</div>
+  </div>
+
+  <div class="cover-meta">
+    <div class="col"><span>Team</span><b>SmartHelm</b></div>
+    <div class="col" style="text-align:center"><span>Program</span><b>Unisys Innovation Program — Year 17</b></div>
+    <div class="col right"><span>Date</span><b>May 2026</b></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 2 — THE HOOK
+     ══════════════════════════════════════════ -->
+<section class="slide" data-label="The Hook">
+  <div class="wordmark"><span><svg width="22" height="22"><use href="#helm-ico" stroke="#E8530A"/></svg></span><span class="name">Smart<span>Helm</span></span></div>
+  <div class="slide-tag"><span class="n">01</span>&nbsp;·&nbsp;The Hook</div>
+
+  <div class="body">
+    <div class="hook-grid">
+      <div>
+        <h1 class="headline">Every day, delivery riders make thousands of decisions <span class="navy">while exhausted.</span></h1>
+        <hr class="rule"/>
+        <div class="hook-line">Nobody is watching the rider.</div>
+        <p class="body-text muted" style="margin-top:48px">Fleet systems track packages, routes, and speed.<br/>They do not track the person driving.</p>
+      </div>
+      <div class="hook-cards">
+        <div class="hook-card ok">
+          <div class="ico">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-5.5 7-12a7 7 0 0 0-14 0c0 6.5 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          </div>
+          <div class="label">
+            <div class="k">Tracked today</div>
+            <div class="v">GPS · Vehicle · Route</div>
+            <div class="d">Continuous telemetry, second-by-second.</div>
+          </div>
+        </div>
+        <div class="hook-card ko">
+          <div class="ico">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+          </div>
+          <div class="label">
+            <div class="k">Not tracked</div>
+            <div class="v">The rider's condition</div>
+            <div class="d">Alertness, fatigue, microsleep — entirely invisible.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot-tag"><b>SmartHelm</b>&nbsp;·&nbsp;The Hook</div>
+  <div class="page-num"><b>02</b>&nbsp;/&nbsp;20</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 3 — SCALE
+     ══════════════════════════════════════════ -->
+<section class="slide" data-label="The Problem — Scale">
+  <div class="wordmark"><span><svg width="22" height="22"><use href="#helm-ico" stroke="#E8530A"/></svg></span><span class="name">Smart<span>Helm</span></span></div>
+  <div class="slide-tag"><span class="n">02</span>&nbsp;·&nbsp;The Problem · Scale</div>
+
+  <div class="body">
+    <h1 class="headline">Last-mile delivery is one of the fastest-growing<br/>and most dangerous job categories in India.</h1>
+    <hr class="rule"/>
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="n">12M<sup>+</sup></div>
+        <div class="lbl-strong">Delivery riders in India</div>
+        <div class="lbl">Expanding with quick commerce and last-mile logistics.</div>
+      </div>
+      <div class="stat">
+        <div class="n">68<sup>%</sup></div>
+        <div class="lbl-strong">Of accidents involve fatigue</div>
+        <div class="lbl">Identified as a contributing factor in road-incident analyses.</div>
+      </div>
+      <div class="stat">
+        <div class="n" style="font-size:96px;line-height:1">1 in 4</div>
+        <div class="lbl-strong">Riders report chronic fatigue</div>
+        <div class="lbl">Self-reported on the job, across surveyed delivery networks.</div>
+      </div>
+    </div>
+    <div style="margin-top:60px" class="source">SOURCE&nbsp;·&nbsp;Industry estimates · NCRB road safety data · internal fleet operator interviews.</div>
+  </div>
+
+  <div class="foot-tag"><b>SmartHelm</b>&nbsp;·&nbsp;Problem · Scale</div>
+  <div class="page-num"><b>03</b>&nbsp;/&nbsp;20</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 4 — HUMAN COST  (keep as-is — user loved it)
+     ══════════════════════════════════════════ -->
+<section class="slide" data-label="The Human Cost">
+  <div class="wordmark"><span><svg width="22" height="22"><use href="#helm-ico" stroke="#E8530A"/></svg></span><span class="name">Smart<span>Helm</span></span></div>
+  <div class="slide-tag"><span class="n">03</span>&nbsp;·&nbsp;The Human Cost</div>
+
+  <div class="body">
+    <h1 class="headline">Fatigue is invisible — <span class="navy">until it becomes an accident.</span></h1>
+    <hr class="rule"/>
+    <div class="human-grid">
+      <div style="display:flex;flex-direction:column;justify-content:center">
+        <p class="pull-quote">He was fine when he left.<br/>We had no warning.</p>
+        <div class="pull-attr">— <b>Fleet manager</b>, post-incident interview&nbsp;·&nbsp;Bengaluru, 2024</div>
+      </div>
+      <div class="human-right">
+        <div class="micro-stat">
+          <div class="k">A microsleep</div>
+          <div class="v">3–5<sub>seconds</sub></div>
+          <hr class="micro-rule"/>
+          <div class="d">Brief involuntary lapses of consciousness — eyes can be open, awareness is gone.</div>
+        </div>
+        <div class="micro-stat">
+          <div class="k">At 40 km/h, that becomes</div>
+          <div class="v">55<sub>metres</sub></div>
+          <hr class="micro-rule"/>
+          <div class="d">Of blind movement. No braking. No steering. No awareness.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot-tag"><b>SmartHelm</b>&nbsp;·&nbsp;Human Cost</div>
+  <div class="page-num"><b>04</b>&nbsp;/&nbsp;20</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 5 — BUSINESS COST
+     ══════════════════════════════════════════ -->
+<section class="slide" data-label="The Business Cost">
+  <div class="wordmark"><span><svg width="22" height="22"><use href="#helm-ico" stroke="#E8530A"/></svg></span><span class="name">Smart<span>Helm</span></span></div>
+  <div class="slide-tag"><span class="n">04</span>&nbsp;·&nbsp;The Business Cost</div>
+
+  <div class="body">
+    <h1 class="headline">Accidents don't just hurt riders.<br/><span class="navy">They expose the entire operation.</span></h1>
+    <hr class="rule"/>
+    <div class="quad">
+      <div class="cell">
+        <div class="ico-row"><div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9l5 5v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/><path d="M14 4v5h5"/><path d="M9 14h6M9 17h4"/></svg></div><div class="lbl">Legal liability</div></div>
+        <div class="bar"></div><div class="desc">Lawsuits, claims, and regulatory scrutiny following preventable incidents.</div>
+      </div>
+      <div class="cell">
+        <div class="ico-row"><div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-4Z"/></svg></div><div class="lbl">Insurance exposure</div></div>
+        <div class="bar"></div><div class="desc">Premiums rise sharply after preventable incidents; coverage terms tighten.</div>
+      </div>
+      <div class="cell">
+        <div class="ico-row"><div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="lbl">Delivery disruption</div></div>
+        <div class="bar"></div><div class="desc">Order delays, SLA failures, and last-minute reassignment across the network.</div>
+      </div>
+      <div class="cell">
+        <div class="ico-row"><div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5Z"/></svg></div><div class="lbl">Reputational risk</div></div>
+        <div class="bar"></div><div class="desc">Public incidents erode brand trust with customers, partners, and regulators.</div>
+      </div>
+    </div>
+    <p class="quad-foot">Fleet operators bear the consequence of conditions <span style="color:var(--orange);font-weight:600">they currently cannot see.</span></p>
+  </div>
+
+  <div class="foot-tag"><b>SmartHelm</b>&nbsp;·&nbsp;Business Cost</div>
+  <div class="page-num"><b>05</b>&nbsp;/&nbsp;20</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 6 — LIMITATIONS
+     ══════════════════════════════════════════ -->
+<section class="slide" data-label="Current Limitations">
+  <div class="wordmark"><span><svg width="22" height="22"><use href="#helm-ico" stroke="#E8530A"/></svg></span><span class="name">Smart<span>Helm</span></span></div>
+  <div class="slide-tag"><span class="n">05</span>&nbsp;·&nbsp;The Category Miss</div>
+
+  <div class="body">
+    <h1 class="headline">Today's fleet tech monitors everything —<br/><span class="navy">except the rider.</span></h1>
+    <hr class="rule"/>
+    <div class="twocol">
+      <div class="col tracked">
+        <div class="col-head">What fleets track today</div>
+        <ul>
+          <li><span class="mk">✓</span>GPS location</li>
+          <li><span class="mk">✓</span>Speed &amp; acceleration</li>
+          <li><span class="mk">✓</span>Delivery time</li>
+          <li><span class="mk">✓</span>Route deviation</li>
+          <li><span class="mk">✓</span>Order status</li>
+        </ul>
+      </div>
+      <div class="col invisible">
+        <div class="col-head">What remains invisible</div>
+        <ul>
+          <li><span class="mk">✗</span>Rider alertness</li>
+          <li><span class="mk">✗</span>Drowsiness level</li>
+          <li><span class="mk">✗</span>Fatigue accumulation</li>
+          <li><span class="mk">✗</span>Microsleep risk</li>
+          <li><span class="mk">✗</span>Rider cognitive state</li>
+        </ul>
+      </div>
+    </div>
+    <p class="closer-orange">The fleet sees the vehicle. It does not see the person.</p>
+  </div>
+
+  <div class="foot-tag"><b>SmartHelm</b>&nbsp;·&nbsp;The Category Miss</div>
+  <div class="page-num"><b>06</b>&nbsp;/&nbsp;20</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 7 — SOLUTION (REDESIGNED for clarity)
+     ══════════════════════════════════════════ -->
+<section class="slide soft" data-label="Introducing SmartHelm">
+  <div class="wordmark"><span><svg width="22" height="22"><use href="#helm-ico" stroke="#E8530A"/></svg></span><span class="name">Smart<span>Helm</span></span></div>
+  <div class="slide-tag"><span class="n">06</span>&nbsp;·&nbsp;The Solution</div>
+
+  <div class="body">
+    <div class="pill" style="margin-bottom:20px">Introducing SmartHelm</div>
+    <h1 class="headline" style="font-size:54px">A rider-facing camera + on-device AI that detects drowsiness<br/><span class="navy">and alerts the fleet — in under 2 seconds.</span></h1>
+    <hr class="rule"/>
+
+    <div class="sol-grid">
+      <!-- SENSE -->
+      <div class="sol-card">
+        <div class="sol-head">
+          <div class="ico">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <div><div class="step">Step 1</div><div class="name">Sense</div></div>
+        </div>
+        <div class="sol-body">
+          <div class="what">Hardware</div>
+          <div class="desc">Rider-facing ESP32-CAM captures continuous MJPEG video. <b>15+ frames per second</b>, streamed to on-helmet compute.</div>
+          <div class="metric"><div class="n">15<span style="font-size:24px">+</span></div><div class="u">FPS continuous<br/>video capture</div></div>
+        </div>
+      </div>
+
+      <!-- DETECT -->
+      <div class="sol-card">
+        <div class="sol-head" style="background:var(--orange)">
+          <div class="ico" style="background:rgba(255,255,255,.18)">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          </div>
+          <div><div class="step">Step 2</div><div class="name">Detect</div></div>
+        </div>
+        <div class="sol-body">
+          <div class="what">AI Engine</div>
+          <div class="desc">MediaPipe maps <b>468 facial landmarks</b>. Eye Aspect Ratio (EAR) + PERCLOS algorithm classify OPEN / CLOSED — on-device, no cloud.</div>
+          <div class="metric"><div class="n">&lt;150</div><div class="u">ms latency<br/>on Raspberry Pi</div></div>
+        </div>
+      </div>
+
+      <!-- ACT -->
+      <div class="sol-card">
+        <div class="sol-head" style="background:#12294A">
+          <div class="ico">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </div>
+          <div><div class="step">Step 3</div><div class="name">Act</div></div>
+        </div>
+        <div class="sol-body">
+          <div class="what">Alert System</div>
+          <div class="desc">Audio buzzer fires on the helmet. Fleet dashboard turns <b style="color:var(--red)">red</b>. MQTT event logged for post-trip analysis.</div>
+          <div class="metric"><div class="n">&lt;2</div><div class="u">seconds from<br/>eye closure to alert</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sol-foot">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z"/></svg>
+      Not a camera. A safety intelligence layer — from sensor to alert in one pipeline.
+    </div>
+  </div>
+
+  <div class="foot-tag"><b>SmartHelm</b>&nbsp;·&nbsp;The Solution</div>
+  <div class="page-num"><b>07</b>&nbsp;/&nbsp;20</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 8 — SYSTEM OVERVIEW
+     ══════════════════════════════════════════ -->
+<section class="slide" data-label="How It Works">
+  <div class="wordmark"><span><svg width="22" height="22"><use href="#helm-ico" stroke="#E8530A"/></svg></span><span class="name">Smart<span>Helm</span></span></div>
+  <div class="slide-tag"><span class="n">07</span>&nbsp;·&nbsp;How It Works</div>
+
+  <div class="body">
+    <h1 class="headline">Three cameras. One safety layer. <span class="navy">Continuous intelligence.</span></h1>
+    <hr class="rule"/>
+    <div class="sys-flow">
+      <div class="cam-row">
+        <div class="cam-box">
+          <div class="top"><div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></div><div><div class="tag">Camera 01</div><h3>Rider-facing</h3></div></div>
+          <ul><li>· Eye detection</li><li>· Fatigue alert</li><li>· PERCLOS metric</li></ul>
+        </div>
+        <div class="cam-box">
+          <div class="top"><div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l1.5-3h5L16 7"/><circle cx="12" cy="13.5" r="3.5"/></svg></div><div><div class="tag">Camera 02</div><h3>Front road</h3></div></div>
+          <ul><li>· Incident capture</li><li>· Evidence record</li><li>· Traffic context</li></ul>
+        </div>
+        <div class="cam-box">
+          <div class="top"><div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 4l1.5-3h5L16 4"/><circle cx="12" cy="10.5" r="3.5"/></svg></div><div><div class="tag">Camera 03</div><h3>Rear traffic</h3></div></div>
+          <ul><li>· Accountability</li><li>· Evidence record</li><li>· Tailgating capture</li></ul>
+        </div>
+      </div>
+      <svg viewBox="0 0 1720 90" preserveAspectRatio="none" style="width:100%;height:70px;display:block;margin-top:4px">
+        <line x1="287" y1="0" x2="287" y2="36" stroke="#E8530A" stroke-width="2"/>
+        <line x1="860" y1="0" x2="860" y2="36" stroke="#E8530A" stroke-width="2"/>
+        <line x1="1433" y1="0" x2="1433" y2="36" stroke="#E8530A" stroke-width="2"/>
+        <line x1="287" y1="36" x2="1433" y2="36" stroke="#E8530A" stroke-width="2"/>
+        <line x1="860" y1="36" x2="860" y2="76" stroke="#E8530A" stroke-width="2"/>
+        <polygon points="852,68 860,84 868,68" fill="#E8530A"/>
+      </svg>
+      <div class="sys-merge">
+        <div class="stage-box">
+          <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div>
+          <div><div class="tag">Stage 1</div><h3>Edge processing</h3><p>On-device inference. No cloud dependency. Works offline.</p></div>
+        </div>
+        <div class="stage-box alt">
+          <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg></div>
+          <div><div class="tag" style="color:var(--muted)">Stage 2</div><h3>Fleet dashboard</h3><p style="color:var(--muted)">Real-time alerts. Incident logs. Rider state history.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot-tag"><b>SmartHelm</b>&nbsp;·&nbsp;How It Works</div>
+  <div class="page-num"><b>08</b>&nbsp;/&nbsp;20</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 9 — CAMERA 1 / EAR
+     ══════════════════════════════════════════ -->
+<section class="slide" data-label="Camera 1 — Core Innovation">
+  <div class="wordmark"><span><svg width="22" height="22"><use href="#helm-ico" stroke="#E8530A"/></svg></span><span class="name">Smart<span>Helm</span></span></div>
+  <div class="slide-tag"><span class="n">08</span>&nbsp;·&nbsp;Camera 1 · The Core</div>
+
+  <div class="body">
+    <h1 class="headline">Camera 1 does what no fleet system does today.<br/><span class="navy">It watches the rider, not the road.</span></h1>
+    <hr class="rule"/>
+    <div class="c1-grid">
+      <div>
+        <ul class="c1-list">
+          <li><span class="b">·</span><span>Eye closure duration — frames where EAR drops below threshold</span></li>
+          <li><span class="b">·</span><span>Blink frequency anomalies — irregular patterns signal fatigue</span></li>
+          <li><span class="b">·</span><span><strong>PERCLOS</strong> — the clinical gold standard for drowsiness measurement</span></li>
+          <li><span class="b">·</span><span>Microsleep onset — 1.5-second continuous closure triggers immediate alert</span></li>
+        </ul>
+        <p class="c1-closer" style="margin-top:40px">When EAR stays low for <b>1.5 seconds</b> — SmartHelm acts.</p>
+      </div>
+      <div>
+        <div class="c1-graph">
+          <div class="title">Eye Aspect Ratio (EAR) — Live Signal</div>
+          <svg class="ear-svg" viewBox="0 0 620 220" fill="none">
+            <!-- zones -->
+            <rect x="0" y="0" width="620" height="80" fill="#E7F5EC" opacity=".6"/>
+            <rect x="0" y="80" width="620" height="60" fill="#FEF3C7" opacity=".5"/>
+            <rect x="0" y="140" width="620" height="80" fill="#FCE9E9" opacity=".6"/>
+            <!-- zone labels -->
+            <text x="8" y="22" font-size="13" fill="#16A34A" font-weight="700" letter-spacing=".1em" font-family="Inter,sans-serif">OPEN</text>
+            <text x="8" y="116" font-size="13" fill="#C77700" font-weight="700" letter-spacing=".1em" font-family="Inter,sans-serif">UNCERTAIN</text>
+            <text x="8" y="196" font-size="13" fill="#DC2626" font-weight="700" letter-spacing=".1em" font-family="Inter,sans-serif">DROWSY / CLOSED</text>
+            <!-- EAR line: normal blinks then sustained closure -->
+            <polyline stroke="#1E3A5F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+              points="20,40 80,40 95,155 110,40 160,40 170,160 185,40 240,40 255,165 270,40 320,40
+                      340,175 360,175 380,175 400,175 420,175 440,175 520,175 540,40 600,40"/>
+            <!-- microsleep zone shading -->
+            <rect x="340" y="140" width="200" height="80" fill="#E8530A" opacity=".08"/>
+            <line x1="340" y1="0" x2="340" y2="220" stroke="#E8530A" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <text x="346" y="18" font-size="12" fill="#E8530A" font-weight="700" font-family="Inter,sans-serif">Eyes close</text>
+            <line x1="540" y1="0" x2="540" y2="220" stroke="#16A34A" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <text x="544" y="18" font-size="12" fill="#16A34A" font-weight="700" font-family="Inter,sans-serif">ALERT fires</text>
+            <!-- threshold lines -->
+            <line x1="0" y1="80" x2="620" y2="80" stroke="#1E3A5F" stroke-width="1" stroke-dasharray="3 3" opacity=".4"/>
+            <line x1="0" y1="140" x2="620" y2="140" stroke="#DC2626" stroke-width="1" stroke-dasharray="3 3" opacity=".4"/>
+          </svg>
+          <div class="ear-legend">
+            <div class="item"><div class="sw" style="background:#E7F5EC;border:1px solid #16A34A"></div>Open (EAR &gt; 0.25)</div>
+            <div class="item"><div class="sw" style="background:#FEF3C7;border:1px solid #C77700"></div>Uncertain</div>
+            <div class="item"><div class="sw" style="background:#FCE9E9;border:1px solid #DC2626"></div>Closed (EAR &lt; 0.20)</div>
+            <div class="item"><div class="sw" style="background:rgba(232,83,10,.15);border:1px solid #E8530A"></div>Microsleep zone</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot-tag"><b>SmartHelm</b>&nbsp;·&nbsp;Camera 1</div>
+  <div class="page-num"><b>09</b>&nbsp;/&nbsp;20</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 10 — TWO TRIGGERS
+     ══════════════════════════════════════════ -->
+<section class="slide" data-label="How Drowsiness Is Measured">
+  <div class="wordmark"><span><svg width="22" height="22"><use href="#helm-ico" stroke="#E8530A"/></svg></span><span class="name">Smart<span>Helm</span></span></div>
+  <div class="slide-tag"><span class="n">09</span>&nbsp;·&nbsp;Drowsiness Detection</div>
+
+  <div class="body">
+    <h1 class="headline">We use two clinical-grade triggers — <span class="navy">not guesswork.</span></h1>
+    <hr class="rule"/>
+    <div class="trigger-grid">
+      <div class="trigger-card">
+        <div class="hd"><div class="k">Trigger 1</div><div class="n">Continuous Eye Closure</div></div>
+        <div class="bd">
+          <div class="what">What it measures</div>
+          <div class="desc">Eyes closed for longer than <b>1.5 seconds</b> without interruption.</div>
+          <div class="alert-line"><span style="font-weight:800">→</span> Immediate alert fires</div>
+          <div class="catches"><b>Catches:</b> microsleeps, sudden nodding, head-drop events</div>
+        </div>
+      </div>
+      <div class="trigger-card">
+        <div class="hd"><div class="k">Trigger 2</div><div class="n">PERCLOS</div></div>
+        <div class="bd">
+          <div class="what">What it measures</div>
+          <div class="desc">Percentage of time eyes are closed over any <b>60-second rolling window.</b></div>
+          <div class="alert-line"><span style="font-weight:800">→</span> Alert when ≥ 30%</div>
+          <div class="catches"><b>Catches:</b> cumulative fatigue, gradual drowsiness buildup, slow blink drift</div>
+        </div>
+      </div>
+    </div>
+    <p class="trigger-foot">Both triggers cross-validate in real time. <b>One false reading does not fire an alert.</b></p>
+  </div>
+
+  <div class="foot-tag"><b>SmartHelm</b>&nbsp;·&nbsp;Drowsiness Detection</div>
+  <div class="page-num"><b>10</b>&nbsp;/&nbsp;20</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 11 — ALERT PIPELINE
+     ══════════════════════════════════════════ -->
+<section class="slide" data-label="Real-Time Alert Pipeline">
+  <div class="wordmark"><span><svg width="22" height="22"><use href="#helm-ico" stroke="#E8530A"/></svg></span><span class="name">Smart<span>Helm</span></span></div>
+  <div class="slide-tag"><span class="n">10</span>&nbsp;·&nbsp;Alert Pipeline</div>
+  <div class="body">
+    <h1 class="headline">From detection to alert <span class="navy">in under 2 seconds.</span></h1>
+    <hr class="rule"/>
+    <div class="pipe">
+      <div class="pipe-steps">
+        <div class="pipe-line"></div>
+        <div class="pipe-step"><div class="node">1</div><div class="lbl">Frame captured</div><div class="t">0 ms</div></div>
+        <div class="pipe-step"><div class="node" style="border-color:var(--orange);color:var(--orange)">2</div><div class="lbl">Eye state detected</div><div class="t">~80 ms</div></div>
+        <div class="pipe-step"><div class="node">3</div><div class="lbl">Threshold evaluated</div><div class="t">~120 ms</div></div>
+      </div>
+      <div class="pipe-alert">
+        <div class="hd"><div class="k">Alert triggered</div><div class="n">~150 ms total</div></div>
+        <ul>
+          <li>Audible helmet buzzer fires</li>
+          <li>Dashboard banner turns red</li>
+          <li>MQTT event published to fleet</li>
+          <li>Incident logged with timestamp</li>
+        </ul>
+        <div class="total">Total: frame → fleet alert in &lt; 2 seconds end-to-end</div>
+      </div>
+    </div>
+    <div class="pipe-foot"><b>No cloud round-trip.</b>&nbsp; All inference runs on-device. Works without internet connectivity.</div>
+  </div>
+  <div class="foot-tag"><b>SmartHelm</b>&nbsp;·&nbsp;Alert Pipeline</div>
+  <div class="page-num"><b>11</b>&nbsp;/&nbsp;20</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 12 — ACCOUNTABILITY
+     ══════════════════════════════════════════ -->
+<section class="slide" data-label="Camera 2+3 — Accountability">
+  <div class="wordmark"><span><svg width="22" height="22"><use href="#helm-ico" stroke="#E8530A"/></svg></span><span class="name">Smart<span>Helm</span></span></div>
+  <div class="slide-tag"><span class="n">11</span>&nbsp;·&nbsp;Accountability Layer</div>
+  <div class="body">
+    <h1 class="headline">When an incident happens —<br/><span class="navy">SmartHelm already has the evidence.</span></h1>
+    <hr class="rule"/>
+    <div class="acc-grid">
+      <div class="acc-card">
+        <div class="hd">
+          <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l1.5-3h5L16 7"/><circle cx="12" cy="13.5" r="3.5"/></svg></div>
+          <div><div class="k">Camera 02</div><div class="n">Front Road View</div></div>
+        </div>
+        <div class="lines">
+          <div class="l">Road &amp; traffic context<span class="b">Captures collision scenario from the rider's perspective</span></div>
+          <div class="l">Incident evidence<span class="b">Timestamped video with GPS correlation</span></div>
+        </div>
+        <div class="arow">
+          <div class="col"><div class="k">Protects</div><div class="v">The company</div></div>
+          <div class="col"><div class="k use">Use case</div><div class="v">Insurance claims</div></div>
+        </div>
+      </div>
+      <div class="acc-card">
+        <div class="hd">
+          <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 4l1.5-3h5L16 4"/><circle cx="12" cy="10.5" r="3.5"/></svg></div>
+          <div><div class="k">Camera 03</div><div class="n">Rear Traffic View</div></div>
+        </div>
+        <div class="lines">
+          <div class="l">Tailgating &amp; rear incidents<span class="b">Captures vehicles approaching from behind</span></div>
+          <div class="l">Hit-and-run evidence<span class="b">Continuous rear recording, incident-flagged clips</span></div>
+        </div>
+        <div class="arow">
+          <div class="col"><div class="k">Protects</div><div class="v">The rider</div></div>
+          <div class="col"><div class="k use">Use case</div><div class="v">False blame prevention</div></div>
+        </div>
+      </div>
+    </div>
+    <p class="acc-foot">For the first time, fleet operators have a complete accountability record — before, during, and after any incident.</p>
+  </div>
+  <div class="foot-tag"><b>SmartHelm</b>&nbsp;·&nbsp;Accountability</div>
+  <div class="page-num"><b>12</b>&nbsp;/&nbsp;20</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 13 — FLEET DASHBOARD
+     ══════════════════════════════════════════ -->
+<section class="slide" data-label="Fleet Dashboard">
+  <div class="wordmark"><span><svg width="22" height="22"><use href="#helm-ico" stroke="#E8530A"/></svg></span><span class="name">Smart<span>Helm</span></span></div>
+  <div class="slide-tag"><span class="n">12</span>&nbsp;·&nbsp;Fleet Dashboard</div>
+  <div class="body">
+    <h1 class="headline">Every rider's state. One screen. <span class="navy">Real time.</span></h1>
+    <hr class="rule"/>
+    <div class="dash">
+      <div class="dash-top">
+        <div class="brand-d"><svg width="20" height="20"><use href="#helm-ico" stroke="#E8530A"/></svg> SmartHelm Fleet Monitor</div>
+        <div class="spacer"></div>
+        <div class="stat-chip"><span class="dot green"></span><b>24</b>&nbsp;Active Riders</div>
+        <div class="stat-chip alert-chip"><span class="dot red"></span><b>2</b>&nbsp;Alerts</div>
+        <div class="stat-chip">Updated <b>live</b></div>
+      </div>
+      <div class="dash-body">
+        <div class="dash-table">
+          <table>
+            <thead><tr><th>Rider ID</th><th>Zone</th><th>Eye State</th><th>PERCLOS</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><span class="mono">RD-1042</span></td><td>Koramangala</td><td>OPEN</td><td>12%</td><td><span class="dstatus normal"><span class="dot"></span>Normal</span></td></tr>
+              <tr class="d-alert"><td><span class="mono">RD-1087</span></td><td>HSR Layout</td><td><b style="color:var(--red)">CLOSED</b></td><td><b style="color:var(--red)">34%</b></td><td><span class="dstatus d-alert-s"><span class="dot"></span>ALERT</span></td></tr>
+              <tr><td><span class="mono">RD-1103</span></td><td>Indiranagar</td><td>OPEN</td><td>8%</td><td><span class="dstatus normal"><span class="dot"></span>Normal</span></td></tr>
+              <tr><td><span class="mono">RD-1119</span></td><td>Whitefield</td><td>OPEN</td><td>22%</td><td><span class="dstatus monitor"><span class="dot"></span>Monitor</span></td></tr>
+              <tr><td><span class="mono">RD-1134</span></td><td>Marathahalli</td><td>OPEN</td><td>6%</td><td><span class="dstatus normal"><span class="dot"></span>Normal</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="dash-side">
+          <div class="section-t">Active Alert</div>
+          <div class="dash-alert-box">
+            <div class="t"><span class="pulse"></span>Drowsiness Alert</div>
+            <div class="v">RD-1087 — HSR Layout</div>
+            <div class="meta">18:44:03 · PERCLOS 34% · Eyes closed 1.8s</div>
+          </div>
+          <div class="section-t" style="margin-top:4px">Fleet Summary</div>
+          <div class="dash-summary">
+            <div class="c ok"><div class="k">Normal</div><div class="v">22</div></div>
+            <div class="c d-alert-c"><div class="k">Alerts</div><div class="v">2</div></div>
+            <div class="c"><div class="k">Avg PERCLOS</div><div class="v">16%</div></div>
+            <div class="c"><div class="k">Monitoring</div><div class="v">4</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot-tag"><b>SmartHelm</b>&nbsp;·&nbsp;Fleet Dashboard</div>
+  <div class="page-num"><b>13</b>&nbsp;/&nbsp;20</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 14 — WHY NOW
+     ══════════════════════════════════════════ -->
+<section class="slide soft" data-label="Why Now">
+  <div class="wordmark"><span><svg width="22" height="22"><use href="#helm-ico" stroke="#E8530A"/></svg></span><span class="name">Smart<span>Helm</span></span></div>
+  <div class="slide-tag"><span class="n">13</span>&nbsp;·&nbsp;Why Now</div>
+  <div class="body">
+    <h1 class="headline">The conditions for this system to matter <span class="navy">have already arrived.</span></h1>
+    <hr class="rule"/>
+    <div class="why-grid">
+      <div class="why-col">
+        <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="big">12M<sup style="font-size:.45em;color:var(--orange)">+</sup></div>
+        <div class="lbl">Scale</div>
+        <div class="rule-s"></div>
+        <div class="body-t">Delivery riders in India. <b>Quick commerce growing 40% YoY.</b> Fleets scaling faster than safety can keep up.</div>
+      </div>
+      <div class="why-col">
+        <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-4Z"/></svg></div>
+        <div class="big">Now</div>
+        <div class="lbl">Regulation</div>
+        <div class="rule-s"></div>
+        <div class="body-t">Road safety accountability is tightening. <b>Liability exposure is increasing.</b> ADAS mandates expanding globally to two-wheelers.</div>
+      </div>
+      <div class="why-col">
+        <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6M9 12h4M9 15h6"/></svg></div>
+        <div class="big">$15</div>
+        <div class="lbl">Technology</div>
+        <div class="rule-s"></div>
+        <div class="body-t">MediaPipe, edge inference, and lightweight CV now run on <b>$15 Raspberry Pi hardware.</b> No cloud required.</div>
+      </div>
+    </div>
+    <div class="why-foot">The infrastructure gap is growing. SmartHelm closes it.</div>
+  </div>
+  <div class="foot-tag"><b>SmartHelm</b>&nbsp;·&nbsp;Why Now</div>
+  <div class="page-num"><b>14</b>&nbsp;/&nbsp;20</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 15 — MARKET OPPORTUNITY
+     ══════════════════════════════════════════ -->
+<section class="slide" data-label="Market Opportunity">
+  <div class="wordmark"><span><svg width="22" height="22"><use href="#helm-ico" stroke="#E8530A"/></svg></span><span class="name">Smart<span>Helm</span></span></div>
+  <div class="slide-tag"><span class="n">14</span>&nbsp;·&nbsp;Market Opportunity</div>
+  <div class="body">
+    <h1 class="headline">The addressable market is large — <span class="navy">and mostly unserved.</span></h1>
+    <hr class="rule"/>
+    <div class="mkt-grid">
+      <ul class="mkt-list">
+        <li><div class="n">12M<sup style="font-size:.4em;color:var(--orange);vertical-align:.6em">+</sup></div><div class="l">Delivery riders in India alone</div></li>
+        <li><div class="n">~3M</div><div class="l">Fleet-managed riders (Swiggy, Zomato, Zepto, logistics)</div></li>
+        <li><div class="n">180K</div><div class="l">Riders per major metro area</div></li>
+        <li><div class="n" style="font-size:42px">₹2,400</div><div class="l">Estimated SaaS value per rider per year</div></li>
+      </ul>
+      <div class="bars">
+        <div class="row tam">
+          <div class="k">TAM — Fleet safety tech, India<b>₹8,000 Cr+</b></div>
+          <div class="bar"><div class="fill" style="width:100%;opacity:.85"></div></div>
+          <div class="desc">Total addressable fleet safety market</div>
+        </div>
+        <div class="row sam">
+          <div class="k">SAM — Monitored delivery fleets<b>₹2,400 Cr</b></div>
+          <div class="bar"><div class="fill" style="width:30%"></div></div>
+          <div class="desc">Serviceable addressable market</div>
+        </div>
+        <div class="row som">
+          <div class="k">SOM — Year 1 pilot target<b>2 fleets · 500 riders</b></div>
+          <div class="bar"><div class="fill" style="width:4%"></div></div>
+          <div class="desc">Beachhead: 2 metro fleets, proof-of-value</div>
+        </div>
+        <div class="source" style="margin-top:8px">Market sizing based on industry fleet reports and comparable SaaS models.</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot-tag"><b>SmartHelm</b>&nbsp;·&nbsp;Market</div>
+  <div class="page-num"><b>15</b>&nbsp;/&nbsp;20</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 16 — COMPETITIVE
+     ══════════════════════════════════════════ -->
+<section class="slide soft" data-label="Competitive Differentiation">
+  <div class="wordmark"><span><svg width="22" height="22"><use href="#helm-ico" stroke="#E8530A"/></svg></span><span class="name">Smart<span>Helm</span></span></div>
+  <div class="slide-tag"><span class="n">15</span>&nbsp;·&nbsp;Competitive Landscape</div>
+  <div class="body">
+    <h1 class="headline">No existing solution monitors rider state <span class="navy">in real time.</span></h1>
+    <hr class="rule"/>
+    <table class="comp-table">
+      <thead><tr><th class="feat">Feature</th><th>GPS Tracking</th><th>Dashcams</th><th class="sh">SmartHelm</th></tr></thead>
+      <tbody>
+        <tr><td class="feat">Real-time drowsiness detection</td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td class="sh"><span class="yes">✓</span></td></tr>
+        <tr><td class="feat">Eye-state classification</td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td class="sh"><span class="yes">✓</span></td></tr>
+        <tr><td class="feat">PERCLOS fatigue metric</td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td class="sh"><span class="yes">✓</span></td></tr>
+        <tr><td class="feat">Front road incident capture</td><td><span class="no">✗</span></td><td><span class="yes">✓</span></td><td class="sh"><span class="yes">✓</span></td></tr>
+        <tr><td class="feat">Rear incident capture</td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td class="sh"><span class="yes">✓</span></td></tr>
+        <tr><td class="feat">Proactive alert system</td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td class="sh"><span class="yes">✓</span></td></tr>
+        <tr><td class="feat">Edge processing (offline-capable)</td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td class="sh"><span class="yes">✓</span></td></tr>
+        <tr><td class="feat">Fleet dashboard integration</td><td><span class="yes">✓</span></td><td><span class="no">✗</span></td><td class="sh"><span class="yes">✓</span></td></tr>
+      </tbody>
+    </table>
+    <p class="comp-foot">SmartHelm is the only system that monitors rider condition — not just vehicle behaviour.</p>
+  </div>
+  <div class="foot-tag"><b>SmartHelm</b>&nbsp;·&nbsp;Competitive</div>
+  <div class="page-num"><b>16</b>&nbsp;/&nbsp;20</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 17 — TECH CREDIBILITY
+     ══════════════════════════════════════════ -->
+<section class="slide" data-label="Technical Credibility">
+  <div class="wordmark"><span><svg width="22" height="22"><use href="#helm-ico" stroke="#E8530A"/></svg></span><span class="name">Smart<span>Helm</span></span></div>
+  <div class="slide-tag"><span class="n">16</span>&nbsp;·&nbsp;Technical Credibility</div>
+  <div class="body">
+    <h1 class="headline">Built on proven, production-grade <span class="navy">computer vision.</span></h1>
+    <hr class="rule"/>
+    <div class="tech-grid">
+      <div class="tech-col">
+        <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <div class="lbl">Detection Engine</div>
+        <div class="rule-s"></div>
+        <ul>
+          <li><span class="t">MediaPipe FaceLandmarker</span><span class="d">468-point landmark tracking per frame</span></li>
+          <li><span class="t">Eye Aspect Ratio (EAR)</span><span class="d">PERCLOS-aligned clinical standard</span></li>
+          <li><span class="t">5-frame rolling average</span><span class="d">Eliminates single-frame false positives</span></li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h1v5m0 0H9m1 0h1M14 9h1v5"/></svg></div>
+        <div class="lbl">Processing Layer</div>
+        <div class="rule-s"></div>
+        <ul>
+          <li><span class="t">Python + OpenCV</span><span class="d">Real-time EAR computation</span></li>
+          <li><span class="t">8–15 FPS sustained</span><span class="d">On Raspberry Pi 4</span></li>
+          <li><span class="t">&lt;150 ms latency</span><span class="d">No cloud round-trip required</span></li>
+        </ul>
+      </div>
+      <div class="tech-col">
+        <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <div class="lbl">Connectivity</div>
+        <div class="rule-s"></div>
+        <ul>
+          <li><span class="t">MQTT protocol</span><span class="d">Mosquitto broker, paho-mqtt client</span></li>
+          <li><span class="t">Flask dashboard</span><span class="d">Live MJPEG + JSON API</span></li>
+          <li><span class="t">CSV event log</span><span class="d">Post-trip fatigue analysis</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tech-note"><b>Architecture:</b> inference runs on Raspberry Pi — not on the camera. Eliminates embedded ML risk while enabling rapid iteration.</div>
+    <div class="tech-upgrade">Day 2 upgrade path: <b>CNN classifier (ONNX / MobileNetV2)</b> replaces EAR for higher accuracy — zero changes to the rest of the system.</div>
+  </div>
+  <div class="foot-tag"><b>SmartHelm</b>&nbsp;·&nbsp;Technical</div>
+  <div class="page-num"><b>17</b>&nbsp;/&nbsp;20</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 18 — SCALABILITY / ROADMAP
+     ══════════════════════════════════════════ -->
+<section class="slide soft" data-label="Scalability">
+  <div class="wordmark"><span><svg width="22" height="22"><use href="#helm-ico" stroke="#E8530A"/></svg></span><span class="name">Smart<span>Helm</span></span></div>
+  <div class="slide-tag"><span class="n">17</span>&nbsp;·&nbsp;Roadmap</div>
+  <div class="body">
+    <h1 class="headline">Designed for a pilot. <span class="navy">Architected for a fleet.</span></h1>
+    <hr class="rule"/>
+    <div class="scale-grid">
+      <div class="scale-arrow a1"></div>
+      <div class="scale-arrow a2"></div>
+      <div class="scale-card now">
+        <div class="ph">Phase 1</div>
+        <div class="when">Now</div>
+        <div class="rule-s"></div>
+        <ul>
+          <li>3-camera pilot rig</li>
+          <li>EAR drowsiness detection</li>
+          <li>MQTT fleet alerts</li>
+          <li>Single-rider demo-ready</li>
+        </ul>
+      </div>
+      <div class="scale-card">
+        <div class="ph">Phase 2</div>
+        <div class="when">3–6 Months</div>
+        <div class="rule-s"></div>
+        <ul>
+          <li>Fleet dashboard · multi-rider</li>
+          <li>CNN upgrade for accuracy</li>
+          <li>Insurance API integration</li>
+          <li>Field trials · 5 riders</li>
+        </ul>
+      </div>
+      <div class="scale-card">
+        <div class="ph">Phase 3</div>
+        <div class="when">12 Months</div>
+        <div class="rule-s"></div>
+        <ul>
+          <li>SaaS deployment</li>
+          <li>Swiggy / Zomato integration</li>
+          <li>Regulatory certification</li>
+          <li>Scale to 10,000 riders</li>
+        </ul>
+      </div>
+    </div>
+    <p class="scale-foot">Every component is modular. Every upgrade is additive. <b>Nothing needs to be rebuilt.</b></p>
+  </div>
+  <div class="foot-tag"><b>SmartHelm</b>&nbsp;·&nbsp;Roadmap</div>
+  <div class="page-num"><b>18</b>&nbsp;/&nbsp;20</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 19 — DEMO WALKTHROUGH
+     ══════════════════════════════════════════ -->
+<section class="slide" data-label="Demo Walkthrough">
+  <div class="wordmark"><span><svg width="22" height="22"><use href="#helm-ico" stroke="#E8530A"/></svg></span><span class="name">Smart<span>Helm</span></span></div>
+  <div class="slide-tag"><span class="n">18</span>&nbsp;·&nbsp;Live Demo</div>
+  <div class="body">
+    <h1 class="headline">Watch SmartHelm detect drowsiness — <span class="navy">live.</span></h1>
+    <hr class="rule"/>
+    <div class="demo-grid">
+      <div class="demo-card d-green">
+        <div class="step-tag"><b>Step 1</b></div>
+        <div class="dname">Eyes Open</div>
+        <div class="rule-s"></div>
+        <div class="viz">
+          <svg width="80" height="50" viewBox="0 0 80 50" fill="none">
+            <ellipse cx="40" cy="25" rx="36" ry="18" stroke="#16A34A" stroke-width="2.5"/>
+            <circle cx="40" cy="25" r="9" fill="#E7F5EC" stroke="#16A34A" stroke-width="2"/>
+            <circle cx="40" cy="25" r="4" fill="#16A34A"/>
+          </svg>
+        </div>
+        <div class="data">
+          <div class="drow"><span class="k">Eye State</span><span class="v" style="color:var(--green)">OPEN</span></div>
+          <div class="drow"><span class="k">EAR</span><span class="v">0.31</span></div>
+          <div class="drow"><span class="k">PERCLOS</span><span class="v">8%</span></div>
+        </div>
+      </div>
+      <div class="demo-card d-orange">
+        <div class="step-tag"><b>Step 2</b></div>
+        <div class="dname">Eyes Close</div>
+        <div class="rule-s"></div>
+        <div class="viz">
+          <svg width="80" height="50" viewBox="0 0 80 50" fill="none">
+            <ellipse cx="40" cy="25" rx="36" ry="18" stroke="#E8530A" stroke-width="2.5"/>
+            <line x1="10" y1="25" x2="70" y2="25" stroke="#E8530A" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="data">
+          <div class="drow"><span class="k">Eye State</span><span class="v" style="color:var(--orange)">CLOSED</span></div>
+          <div class="drow"><span class="k">EAR</span><span class="v">0.17</span></div>
+          <div class="drow"><span class="k">PERCLOS</span><span class="v">34%</span></div>
+        </div>
+      </div>
+      <div class="demo-card d-red">
+        <div class="step-tag"><b>Step 3</b></div>
+        <div class="dname">Alert Fires</div>
+        <div class="rule-s"></div>
+        <div class="viz">
+          <svg width="60" height="70" viewBox="0 0 60 70" fill="none">
+            <path d="M30 5a20 20 0 0 1 20 20c0 18-8 24-8 24H18S10 43 10 25A20 20 0 0 1 30 5Z" fill="rgba(220,38,38,.15)" stroke="#DC2626" stroke-width="2.5"/>
+            <path d="M22 49a8 8 0 0 0 16 0" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="30" cy="24" r="4" fill="#DC2626"/>
+          </svg>
+        </div>
+        <div class="data">
+          <div class="drow"><span class="k">Alert</span><span class="v" style="color:var(--red)">ACTIVE</span></div>
+          <div class="drow"><span class="k">Buzzer</span><span class="v">3× beeps</span></div>
+          <div class="drow"><span class="k">MQTT</span><span class="v">Published</span></div>
+        </div>
+      </div>
+      <div class="demo-card d-green">
+        <div class="step-tag"><b>Step 4</b></div>
+        <div class="dname">Dashboard</div>
+        <div class="rule-s"></div>
+        <div class="viz" style="background:var(--red-soft);flex-direction:column;gap:8px">
+          <div style="font-size:13px;font-weight:700;color:var(--red);letter-spacing:.1em">ALERT — RD-1087</div>
+          <div style="font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace">PERCLOS 34% · 1.8s closure</div>
+        </div>
+        <div class="data">
+          <div class="drow"><span class="k">Fleet view</span><span class="v" style="color:var(--red)">Flagged</span></div>
+          <div class="drow"><span class="k">Logged</span><span class="v">events.csv</span></div>
+          <div class="drow"><span class="k">Latency</span><span class="v">&lt;2 s</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="demo-foot">Total time from eye closure to fleet alert: <b>&lt; 2 seconds.</b></p>
+  </div>
+  <div class="foot-tag"><b>SmartHelm</b>&nbsp;·&nbsp;Demo</div>
+  <div class="page-num"><b>19</b>&nbsp;/&nbsp;20</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 20 — CLOSING
+     ══════════════════════════════════════════ -->
+<section class="slide" data-label="The Call">
+  <div class="wordmark"><span><svg width="22" height="22"><use href="#helm-ico" stroke="#E8530A"/></svg></span><span class="name">Smart<span>Helm</span></span></div>
+  <div class="body" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%">
+    <div class="close-hero">
+      <h1>The last-mile workforce is scaling.<br/>The safety infrastructure is not keeping up.</h1>
+      <hr class="close-rule"/>
+      <p class="close-sub">SmartHelm is the missing layer.</p>
+    </div>
+    <div class="asks">
+      <div class="ask">
+        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="k">Pilot Partner</div>
+        <div class="v">Deploy a <b>30-day trial</b> with your fleet operations and validate real-world drowsiness reduction.</div>
+      </div>
+      <div class="ask">
+        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+        <div class="k">Technical Mentor</div>
+        <div class="v">Guide Phase 2 — <b>CNN upgrade, edge optimisation,</b> and Raspberry Pi hardware hardening.</div>
+      </div>
+      <div class="ask">
+        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/></svg></div>
+        <div class="k">Strategic Partner</div>
+        <div class="v">Connect us with <b>fleet operators or insurance ecosystem</b> partners ready for a Phase 3 rollout.</div>
+      </div>
+    </div>
+  </div>
+  <div class="close-tag">"See the rider. Protect the fleet."</div>
+  <div class="page-num"><b>20</b>&nbsp;/&nbsp;20</div>
+</section>
+
+</div><!-- #scaler -->
+</div><!-- #viewer -->
+<div id="progress"></div>
+<div id="nav-hint">← → · Space · Click &nbsp;|&nbsp; <span id="slide-counter">1 / 20</span></div>
+
+<script>
+(function(){
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let cur = 0;
+
+  function scale(){
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const s = Math.min(vw/1920, vh/1080);
+    const el = document.getElementById('scaler');
+    el.style.transform = `scale(${s})`;
+    el.style.marginLeft = ((vw - 1920*s)/2) + 'px';
+    el.style.marginTop  = ((vh - 1080*s)/2) + 'px';
+  }
+
+  function go(n){
+    slides[cur].classList.remove('active');
+    cur = (n + total) % total;
+    slides[cur].classList.add('active');
+    document.getElementById('slide-counter').textContent = (cur+1) + ' / ' + total;
+    document.getElementById('progress').style.width = ((cur+1)/total*100) + '%';
+  }
+
+  window.addEventListener('resize', scale);
+  scale();
+
+  document.addEventListener('keydown', e => {
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='ArrowDown') { e.preventDefault(); go(cur+1); }
+    if(e.key==='ArrowLeft'||e.key==='ArrowUp') { e.preventDefault(); go(cur-1); }
+    if(e.key==='Home') go(0);
+    if(e.key==='End') go(total-1);
+  });
+
+  document.getElementById('viewer').addEventListener('click', e => {
+    if(e.clientX > window.innerWidth/2) go(cur+1); else go(cur-1);
+  });
+})();
+</script>
+</body>
+</html>
