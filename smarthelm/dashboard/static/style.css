@@ -378,9 +378,9 @@ main {
 
 .event-table tr:hover td { background: var(--surface2); }
 
-.event-type-perclos    { color: var(--yellow); font-weight: 600; }
-.event-type-continuous { color: var(--red);    font-weight: 600; }
-.event-type-alert      { color: var(--red);    font-weight: 600; }
+.event-type-perclos            { color: var(--yellow); font-weight: 600; }
+.event-type-continuous-closure { color: var(--red);    font-weight: 600; }
+.event-type-alert              { color: var(--red);    font-weight: 600; }
 
 .no-events {
   text-align: center;
