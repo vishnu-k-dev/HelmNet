@@ -6,7 +6,7 @@
 # ---------------------------------------------------------------------------
 # Set USE_WEBCAM_FALLBACK=True while testing without ESP32 hardware.
 # The factory in streams.py will try the URL first; if it can't connect
-# within 3 seconds it falls back to WEBCAM_INDEX (your laptop camera).
+# within 1 second it falls back to WEBCAM_INDEX (your laptop camera).
 USE_WEBCAM_FALLBACK: bool = True
 WEBCAM_INDEX: int = 0
 

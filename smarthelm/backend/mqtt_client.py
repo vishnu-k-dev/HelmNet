@@ -46,7 +46,12 @@ class MQTTPublisher:
         self._port = port or config.MQTT_PORT
         self._connected = False
 
-        self._client = mqtt.Client(client_id=client_id, clean_session=True)
+        # CallbackAPIVersion.VERSION1 required for paho-mqtt 2.x (RPi installs latest)
+        self._client = mqtt.Client(
+            mqtt.CallbackAPIVersion.VERSION1,
+            client_id=client_id,
+            clean_session=True,
+        )
         self._client.on_connect = self._on_connect
         self._client.on_disconnect = self._on_disconnect
         self._client.on_publish = self._on_publish

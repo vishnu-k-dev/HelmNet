@@ -84,7 +84,9 @@ static esp_err_t stream_handler(httpd_req_t *req) {
       res = httpd_resp_send_chunk(req, (const char *)fb->buf, fb->len);
     }
 
+    // Always return the frame buffer — even if send failed — to prevent memory leak
     esp_camera_fb_return(fb);
+    fb = NULL;
 
     if (res != ESP_OK) break;
   }
@@ -169,8 +171,24 @@ void setup() {
 }
 
 // ---------------------------------------------------------------------------
-// Loop — nothing to do, server runs in FreeRTOS tasks
+// Loop — WiFi watchdog (server runs in FreeRTOS tasks)
 // ---------------------------------------------------------------------------
 void loop() {
-  delay(10000);
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("WiFi lost — reconnecting...");
+    WiFi.disconnect();
+    WiFi.begin(WIFI_SSID, WIFI_PASS);
+    int retries = 0;
+    while (WiFi.status() != WL_CONNECTED && retries < 20) {
+      delay(500);
+      Serial.print(".");
+      retries++;
+    }
+    if (WiFi.status() == WL_CONNECTED) {
+      Serial.println("\nWiFi reconnected: " + WiFi.localIP().toString());
+    } else {
+      Serial.println("\nReconnect failed, will retry...");
+    }
+  }
+  delay(10000);  // check every 10 seconds
 }
